@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="https://earth.google.com/kml/2.0">
+ <Document>
+  <Style id="yellowLineGreenPoly">
+   <LineStyle>
+    <color>7f00ffff</color>
+     <width>4</width>
+   </LineStyle>
+   <PolyStyle>
+    <color>7f00ff00</color>
+   </PolyStyle>
+  </Style>
+  <Style id="tornado">
+  	<IconStyle>
+  		<Icon>
+  			<href>https://dl.dropboxusercontent.com/u/20650772/Tornado.png</href>
+  		</Icon>
+          <hotSpot x="9"  y="22" xunits="insetPixels" yunits="insetPixels"/>
+  	</IconStyle>
+  </Style>
+ </Document>
+</kml>

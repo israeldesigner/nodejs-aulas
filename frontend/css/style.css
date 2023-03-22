@@ -1,0 +1,9 @@
+@import './tailwind.css';
+@import './reset.css';
+
+textarea {background-color: #1e1f22; color: #bfbfbf;}
+div.topForm { margin-bottom: 15px; }
+div.topForm label { width: 200px; text-align: right;  display: inline-block; margin: 5px; }
+div.topForm input[type="text"] { width: 20px; margin-right: 40px; }
+textarea { width: 700px; height: 100px; }
+#btnSampleCSV { width: 175px; margin-left: 290px; }

@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter.ttf');
+}
+
+// .flex-container {
+
+//   background: yellow;
+//   position: relative;
+//   display: flex;
+//   // flex-direction:row;
+//   justify-content:flex-start;
+//   flex-wrap: wrap;
+//   align-items: flex-start;
+//   height: 640px;
+//   // flex-flow: row wrap;
+//   .flex-item{
+//     color: black;
+//     border: 1px solid red;
+//     // flex-grow: 1;
+//     // flex-shrink: 1;
+//     // flex-basis: 320px;
+//     // flex: 1 0 320px;
+//     // margin:.3% 0;
+//     width: 33.33;
+//     text-align: center;
+//     padding: 20px 0px;
+//     &:nth-child(9){
+//       background: palegreen;
+//     }
+//   }
+// }
+
+@import 'variables';
+@import 'scaffolding';
