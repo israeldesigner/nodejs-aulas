@@ -26,6 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({  extend: true }));
 app.use(express.static(path.resolve(__dirname, 'dist')));
 app.use('/cadastro', express.static(__dirname + '/dist'));
+app.use('/converter', express.static(__dirname + '/dist'));
 
 const sessionOptions = session({
     secret: 'fdslsdlsdjkfsjkdlf90f00djajbflfkdllkjfdjlkdfs',
