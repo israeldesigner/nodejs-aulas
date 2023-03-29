@@ -1,16 +1,10 @@
+/* eslint-disable no-console */
+/* eslint-disable no-inner-declarations */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 const multer = require('multer');
 const excelToJson = require('convert-excel-to-json');
-const ExcelModel = require('../models/ConvertModel.js');
-const storage = multer.diskStorage({  
-    destination:(req,file,cb)=>{  
-    cb(null,'./public/uploads');  
-    },  
-    filename:(req,file,cb)=>{  
-    cb(null,file.originalname);  
-    }  
-});  
-const uploads = multer({storage:storage});   
+const ExcelModel = require('../models/ConvertModel.js');  
 
 exports.index = (req, res) => {
     res.render('convert');
@@ -18,53 +12,58 @@ exports.index = (req, res) => {
 }
 
 exports.uploadfile = (req, res) => {
-    res.render('uploadfile');
-    importExcelData2MongoDB(__dirname + '/uploads/' + req.file.filename);
-    console.log(res);
-    // Import Excel File to MongoDB database
-    function importExcelData2MongoDB(filePath){
-        // -> Read Excel File to Json Data
-        const excelData = excelToJson({
-        sourceFile: filePath,
-        sheets:[{
-        // Excel Sheet Name
-        name: 'Customers',
-        // Header Row -> be skipped and will not be present at our result object.
-        header:{
-        rows: 1
-        },
-        // Mapping columns to keys
-        columnToKey: {
-        A: '_id',
-        B: 'name',
-        C: 'address',
-        D: 'age'
+    // res.render('/converter')
+    try{
+        console.log(`./uploads/${req.file.filename}`);
+        importExcelData2MongoDB(`./uploads/${req.file.filename}`);
+        // Import Excel File to MongoDB database
+       async function importExcelData2MongoDB(filePath){
+            // -> Read Excel File to Json Data
+
+            const excelData = excelToJson({
+                sourceFile: filePath,
+                header:{
+                    rows: 1
+                },
+                columnToKey: {
+                    '*': '{{columnHeader}}'
+                }
+            });
+            // -> Log Excel Data to Console
+            await ExcelModel.deleteMany({})
+            console.log(excelData);
+            await Object.values(excelData).forEach((val) =>{ 
+                console.log(typeof(val));
+                console.log(val);
+                ExcelModel.insertMany(val).then(
+                    (result) => {
+                        console.log(result)
+                       console.log("Items added succesfully");
+                    }
+                  ).catch(
+                    (err) => {
+                       console.log(err);
+                    }
+                )
+            });
+            res.json(req.body);
+            
+            
+
+            
+
+            // Insert Json-Object to MongoDB
+            // await ExcelModel.insertMany(jsObj,(err,data)=>{  
+            // if(err){  
+            //     console.log(err);  
+            // }else{  
+            //     console.log("cheguei aqui") 
+            // }  
+            // }); 
+            // fs.unlinkSync(filePath);
         }
-        }]
-        });
-        // -> Log Excel Data to Console
-        console.log(excelData);
-        /**
-        { 
-        Customers:
-        [ 
-        { _id: 1, name: 'Jack Smith', address: 'Massachusetts', age: 23 },
-        { _id: 2, name: 'Adam Johnson', address: 'New York', age: 27 },
-        { _id: 3, name: 'Katherin Carter', address: 'Washington DC', age: 26 },
-        { _id: 4, name: 'Jack London', address: 'Nevada', age: 33 },
-        { _id: 5, name: 'Jason Bourne', address: 'California', age: 36 } 
-        ] 
-        }
-        */  
-        // Insert Json-Object to MongoDB
-        ExcelModel.insertMany(jsonObj,(err,data)=>{  
-        if(err){  
-            console.log(err);  
-        }else{  
-        res.redirect('/');  
-        }  
-        }); 
-        fs.unlinkSync(filePath);
+    }catch(e){
+        console.log(e)
     }
 
 }

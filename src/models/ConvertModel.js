@@ -1,10 +1,13 @@
 /* eslint-disable no-undef */
 const mongoose = require('mongoose');
 const ExcelSchema = new mongoose.Schema({  
+    id:{  
+        type:String  
+    },  
     name:{  
         type:String  
     },  
-    email:{  
+    address:{  
         type:String  
     },    
     age:{  

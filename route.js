@@ -6,6 +6,7 @@ const cadastroController = require('./src/controllers/cadastro.controller.js')
 const testeController = require('./src/controllers/teste.controller.js');
 const convertController = require('./src/controllers/convert.controller.js');
 
+
 //rotas da  home
 route.get('/', homeController.index);
 //rotas de login
@@ -21,6 +22,6 @@ route.get('/cadastro/teste', testeController.index);
 
 //convert
 route.get('/converter', convertController.index);
-route.post('/uploadfile', convertController.uploadfile);
+route.post('/converter/upload', convertController.uploadfile);
 
 module.exports = route;
